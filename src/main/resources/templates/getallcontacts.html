@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>System Kuriersko - Logistyczny </title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/appendForm.js}"></script>
+    <script type="text/javascript" th:src="@{/js/createContact.js}"></script>
+    <script type="text/javascript" th:src="@{/js/appendAditionalOptions.js}"></script>
+</head>
+<body>
+<div th:if="${sessionVariable == 'null'}" id="loginPage">
+    <form class="form-block" id="ober-header-form" method="post" action="/indeksik">
+        <input type="text" class="form-control" name="username" placeholder="Login"/>
+        <input type="password" class="form-control" name="password" placeholder="Password"/>
+        <input type= "submit" class="btn btn-success" id="loginBtn" value="Log in"/>
+    </form>
+</div>
+<div id="maintable">
+    <table>
+    <tr>
+        <td>
+
+<div id="contactDiv">
+    <table  class="table">
+        <tr class="active">
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>PhoneNumber</th>
+        </tr>
+        <tr class = "active" th:each="item:${contacts}">
+            <td th:hidden="*{item.id}"></td>
+            <td th:text="*{item.firstname}"></td>
+            <td th:text="*{item.lastname}"></td>
+            <td th:text="*{item.phoneNumber}"></td>
+        </tr>
+    </table>
+</div>
+
+<div id="details">
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>DateOfBirth</th>
+        </tr>
+        <tr th:each="item:${contacts}">
+            <td th:text="*{item.email}"></td>
+            <td th:text="*{item.password}"></td>
+            <td th:text="*{item.category}"></td>
+            <td th:text="*{item.subcategory}"></td>
+            <td th:text="*{item.dateOfBirth}"></td>
+        </tr>
+    </table>
+    </div>
+    <div   id="editdelete">
+         <table>
+             <tr>
+             <th></th>
+             </tr>
+             <tr th:each="item:${contacts}">
+                <td th:if="${sessionVariable != 'null'}"><a th:href="@{'/editContact/' + ${item.id}}">EDIT</a></td>
+                <td  th:if="${sessionVariable != 'null'}"><a th:href="@{'/deleteContact/' + ${item.id}}">DELETE</a></td>
+            </tr>
+         </table>
+    </div>
+        </td>
+    </tr>
+    </table>
+
+</div>
+
+    <button th:if="${sessionVariable != 'null'}" id="addButton">ADD NEW</button>
+
+<div id="addDiv">
+    <form method="post">
+        <label for="firstname">First Name</label><input type = "text" id="firstname" name="firstname"/>
+        <label for="lastname">LastName </label><input type = "text" id ="lastname" name="lastname" />
+        <label for="phoneNumber">Phone number</label><input type = "number" id="phoneNumber" name="phoneNumber"/>
+        <label for="email">Email</label><input type = "email" id="email" name="email"/>
+        <label for="pass">Password</label><input type ="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" id="pass" name="password" title="Password must contain one upper letter, one lower and one number"/>
+        <label for="category">Category</label>
+        <select id="category" name="category">
+            <option value="">Choose type of person</option>
+            <option value="sluzbowy">Służbowy</option>
+            <option value="prywatny">Prywatny</option>
+            <option value="inny">Inny</option>
+        </select>
+      <div id="subCategoryy" style="display:none;">  <label for="subcategory">Subcategory</label>
+        <select id ="subcategory" name="subCategory">
+            <option value="">Choose type of number</option>
+            <option value="boss">Boss</option>
+            <option value="client">Client</option>
+            <option value="hr">HR</option>
+            <option value="daddy">Daddy</option>
+        </select>
+      </div>
+        <div id ="otherr" style="display:none;"><label for="subcategory"></label><input type="text" id="subcategory" name="other"/></div>
+        <label for="dateOfBirth">Date of birth</label><input type = "text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="Date must be YYYY-MM-DD " id="dateOfBirth" name="dateOfBirth"/>
+        <input type="submit" id="addContact" value = "Add contact"/>
+    </form>
+</div>
+
+</body>
+</html>

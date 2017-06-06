@@ -1,0 +1,26 @@
+label{
+    display: block;
+}
+#editDiv{
+    display: block;
+}
+#addDiv{
+    display: none;
+}
+#details{
+    display:table ;
+    float: left;
+    /*margin:21px -380px;*/
+}
+#editdelete{
+    float:left;
+    margin:18px -10px;
+
+}
+#contactDiv{
+    display: table;
+    float: left;
+}
+#maintable{
+    display: table;
+}
