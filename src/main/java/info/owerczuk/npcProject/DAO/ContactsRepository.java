@@ -18,7 +18,6 @@ public interface ContactsRepository extends JpaRepository<Contacts, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Contacts c SET c.firstname = ?2, c.lastname = ?3, c.email=?4, c.category=?5, c.phoneNumber=?6, c.dateOfBirth=?7  WHERE c.id = ?1")
-     int dupadupa(Long id, String firstname, String lastname, String email, String category, String phoneNumber, Date dateOfBirth);
 
     List<Contacts> getAllByIdIsNotNull();
 
